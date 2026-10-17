@@ -1,0 +1,923 @@
+<title>AVA Art &amp; Soul Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Trei direcții pentru pagina principală AVA Art &amp; Soul.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Jost:wght@300..600&family=Pinyon+Script&display=swap">
+<style>
+/* Layout concept: one sand world from the AVA logo, three home-page compositions
+   (A centred & airy · B full-bleed dusk · C editorial journal) sharing tokens, type and the woodsprite light. */
+:root{
+  color-scheme: light;
+  /* palette — sampled from Identitate · Logo.pdf, extended along the brief's beige → light-brown light */
+  --ink:#372B22; --ink-soft:#4A3A2E; --muted:#6B5D4D;
+  --sand-50:#F8F3EB; --sand-100:#F2EDE4; --sand-200:#E2D6BF; --sand-300:#D3C2A4;
+  --clay-400:#B8987A; --clay-500:#9A7656; --clay-600:#765840; /* clay-600: accent text on light surfaces (≥4.5:1 on sand-200) */ --umber-700:#5A4230; --umber-800:#3E2D21; --umber-900:#2A1E16;
+  --glow:#FFE6B8; --line:rgba(55,43,34,.16);
+  /* type */
+  --f-display:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-sans:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-script:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
+  --t-hero:clamp(2.9rem,1.6rem + 5.2vw,6rem);
+  --t-h2:clamp(2rem,1.45rem + 2.4vw,3.25rem);
+  --t-script:clamp(2.6rem,1.9rem + 3vw,4.6rem);
+  --t-lead:clamp(1.15rem,1.05rem + .45vw,1.4rem);
+  --t-body:1.0625rem; --t-small:.9rem;
+  /* motion */
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+  --ease-drawer:cubic-bezier(0.32,0.72,0,1);
+  --gutter:max(16px,env(safe-area-inset-left,0px));
+  --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  --wrap:1180px;
+  /* per-direction surface tokens (defaults = A) */
+  --bg:var(--sand-100); --fg:var(--ink); --fg-2:var(--ink-soft); --fg-3:var(--muted);
+}
+html{background:var(--sand-100);-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:var(--t-body);line-height:1.6;font-weight:400;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;caret-color:var(--clay-600);overflow-x:hidden}
+::selection{background:var(--sand-300);color:var(--ink)}
+*{box-sizing:border-box}
+img{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:6px}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+html{scrollbar-color:var(--clay-400) transparent}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:100%;max-width:calc(var(--wrap) + 2*16px);margin-inline:auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+
+/* ---------- shared atoms ---------- */
+.script{font-family:var(--f-script);font-weight:400;line-height:1.05;letter-spacing:0}
+.display{font-family:var(--f-display);font-optical-sizing:auto}
+.lead{font-family:var(--f-display);font-size:var(--t-lead);line-height:1.5;font-weight:350;color:var(--fg-2)}
+.h2{font-family:var(--f-display);font-size:var(--t-h2);line-height:1.08;letter-spacing:-.015em;font-weight:350}
+.btn{--b-bg:var(--ink);--b-fg:var(--sand-50);display:inline-flex;align-items:center;gap:.9rem;min-height:52px;padding:.45rem .5rem .45rem 1.5rem;
+  border-radius:999px;background:var(--b-bg);color:var(--b-fg);text-decoration:none;font-weight:500;letter-spacing:.01em;
+  transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease;user-select:none;-webkit-user-select:none}
+.btn:active{transform:scale(.97)}
+.btn-ico{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:color-mix(in oklab,var(--b-fg) 14%,transparent);
+  transition:transform 260ms var(--ease-out)}
+.btn-ico svg{width:15px;height:15px}
+.btn-ghost{--b-bg:transparent;--b-fg:var(--fg);box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--fg) 30%,transparent);padding:.45rem 1.5rem}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover .btn-ico{transform:translate(3px,-1px) scale(1.05)}
+  .btn-ghost:hover{--b-bg:color-mix(in oklab,var(--fg) 7%,transparent)}
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.textlink{display:inline-flex;align-items:center;gap:.5rem;font-weight:500;text-decoration:underline;text-decoration-color:color-mix(in oklab,currentColor 35%,transparent)}
+@media (hover:hover) and (pointer:fine){.textlink:hover{text-decoration-color:currentColor}}
+
+/* "Coming soon" — clean, no decoration */
+.soon{border:1px solid color-mix(in oklab,var(--fg) 18%,transparent);border-radius:20px;padding:clamp(1.25rem,1rem + 1.5vw,2rem);
+  display:grid;gap:.4rem;align-content:start;background:color-mix(in oklab,var(--fg) 3%,transparent)}
+.soon-label{font-size:var(--t-small);font-weight:500;letter-spacing:.04em;color:var(--fg-3)}
+.soon h3{font-family:var(--f-display);font-size:1.5rem;font-weight:350;line-height:1.2}
+.soon p{color:var(--fg-2);max-width:42ch}
+
+/* site nav (shared skeleton, themed per direction) */
+.site-nav{position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.1rem}
+.brand{display:block;color:var(--fg);line-height:0}
+.brand svg{height:52px;width:auto}
+.nav-links{display:flex;gap:clamp(1rem,.5rem + 1.4vw,2rem);font-size:.95rem}
+.nav-links a{text-decoration:none;color:var(--fg-2);padding-block:.4rem;position:relative}
+.nav-links a[aria-current]{color:var(--fg)}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 260ms var(--ease-out)}
+.nav-links a[aria-current]::after{transform:scaleX(1)}
+@media (hover:hover) and (pointer:fine){.nav-links a:hover::after{transform:scaleX(1)}}
+.nav-end{display:flex;align-items:center;gap:.5rem}
+.lang{display:inline-flex;border-radius:999px;padding:3px;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--fg) 22%,transparent);font-size:.8rem;font-weight:500}
+.lang button{min-width:40px;min-height:32px;border-radius:999px;color:var(--fg-2);transition:background-color 200ms ease,color 200ms ease}
+.lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.menu-btn{display:none;width:44px;height:44px;border-radius:50%;position:relative;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--fg) 22%,transparent)}
+.menu-btn span{position:absolute;left:13px;right:13px;height:1.5px;background:var(--fg);border-radius:2px;transition:transform 300ms var(--ease-out)}
+.menu-btn span:first-child{transform:translateY(-4px)}
+.menu-btn span:last-child{transform:translateY(4px)}
+.menu-btn[aria-expanded="true"] span:first-child{transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:last-child{transform:rotate(-45deg)}
+@media (max-width:900px){.nav-links{display:none}.menu-btn{display:block}.brand svg{height:38px}}
+
+.sheet{position:fixed;inset:0;z-index:40;display:grid;align-content:center;gap:.25rem;padding:6rem var(--gutter-r) 6rem var(--gutter);
+  background:color-mix(in oklab,var(--sheet-bg,var(--sand-100)) 88%,transparent);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  color:var(--sheet-fg,var(--ink));opacity:0;visibility:hidden;transition:opacity 280ms var(--ease-out),visibility 0s 280ms;overscroll-behavior:contain}
+.sheet.open{opacity:1;visibility:visible;transition:opacity 280ms var(--ease-out)}
+.sheet a{font-family:var(--f-display);font-size:clamp(2rem,8vw,3rem);font-weight:350;text-decoration:none;line-height:1.25;
+  transform:translateY(14px);opacity:0;transition:transform 420ms var(--ease-out),opacity 420ms var(--ease-out)}
+.sheet.open a{transform:none;opacity:1}
+.sheet .sheet-close{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:var(--gutter-r);width:44px;height:44px;border-radius:50%;
+  box-shadow:inset 0 0 0 1px color-mix(in oklab,currentColor 30%,transparent);display:grid;place-items:center}
+
+/* ---------- woodsprite canvas + diffuse light ---------- */
+#sprites{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.dir{position:relative;isolation:isolate}
+.dir[hidden]{display:none}
+
+/* entrance: one orchestrated moment per direction */
+@keyframes rise{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.entering [data-enter]{animation:rise 900ms var(--ease-out) both;animation-delay:calc(var(--i,0) * 70ms + 250ms)}
+.entering .drawn path{stroke-dasharray:1;animation:draw 1500ms var(--ease-in-out) both 60ms}
+.entering .drawn path:nth-child(3){animation-delay:700ms}
+
+/* gentle scroll reveal, progressive enhancement only (content is visible without it) */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 5% entry 55%}
+  }
+}
+
+/* ======================= A · LINIȘTE ======================= */
+.dir-a{--bg:var(--sand-100);--fg:var(--ink);--fg-2:var(--ink-soft);--fg-3:var(--muted);
+  background:
+    radial-gradient(120% 70% at 50% -8%, #FFFBF4 0%, rgba(255,251,244,0) 60%),
+    linear-gradient(180deg, var(--sand-50) 0%, var(--sand-100) 22%, var(--sand-200) 48%, #D9C5A6 66%, var(--sand-200) 82%, var(--sand-100) 100%);
+  color:var(--fg)}
+.dir-a .light{position:absolute;inset:0 0 auto 0;height:1100px;pointer-events:none;z-index:-1;
+  background:radial-gradient(40% 36% at 50% 30%, rgba(255,246,228,.9), rgba(255,246,228,0) 70%);animation:breathe 14s ease-in-out infinite alternate}
+@keyframes breathe{from{opacity:.65;transform:scale(1)}to{opacity:1;transform:scale(1.06)}}
+.a-hero{display:grid;justify-items:center;text-align:center;padding-block:clamp(1.5rem,.5rem + 3vw,3.5rem) 0;gap:1.4rem}
+.a-title{display:grid;justify-items:center;gap:.9rem}
+.a-vase{width:clamp(52px,3vw + 36px,74px);height:auto;color:var(--ink)}
+.a-wordmark{width:clamp(130px,6vw + 100px,184px);height:auto;color:var(--ink)}
+.a-tag{font-family:var(--f-display);font-style:italic;font-weight:350;font-size:clamp(2.7rem,1.5rem + 4.4vw,5.25rem);line-height:1;letter-spacing:-.02em;color:var(--ink);max-width:12ch}
+.a-sub{max-width:46ch;color:var(--fg-2);font-size:var(--t-lead);line-height:1.55}
+.a-photo{margin:clamp(2.5rem,2rem + 3vw,4.5rem) 0 0;width:100%;border-radius:28px;overflow:hidden;aspect-ratio:21/9;box-shadow:0 30px 60px -30px rgba(62,45,33,.45)}
+.a-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+@media (max-width:640px){.a-photo{aspect-ratio:4/5;border-radius:22px}}
+.a-section{padding-block:clamp(5rem,3rem + 7vw,9rem)}
+.a-about{display:grid;justify-items:center;text-align:center;gap:1.4rem}
+.a-about .script{font-size:var(--t-script);color:var(--clay-600)}
+.a-about .lead{max-width:34ch;font-size:clamp(1.35rem,1.1rem + 1vw,1.85rem);color:var(--ink)}
+/* services: index list + one changing image */
+.a-what{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,1rem + 5vw,6rem);align-items:start}
+.a-what-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap}
+.a-what-head .script{font-size:var(--t-script);color:var(--clay-600)}
+.a-frame{position:sticky;top:2rem;aspect-ratio:4/5;border-radius:220px 220px 28px 28px;overflow:hidden;background:var(--sand-200)}
+.a-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 600ms var(--ease-out),transform 900ms var(--ease-out)}
+.a-frame img.on{opacity:1;transform:none}
+.a-list{list-style:none;margin:0;padding:0}
+.a-list li{border-top:1px solid var(--line)}
+.a-list li:last-child{border-bottom:1px solid var(--line)}
+.a-list a{display:grid;grid-template-columns:1fr auto;gap:.3rem 1.5rem;padding:1.6rem 0;text-decoration:none;align-items:center}
+.a-list .name{font-family:var(--f-display);font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);font-weight:350;line-height:1.1;transition:transform 400ms var(--ease-out)}
+.a-list .line{grid-column:1;color:var(--fg-2);max-width:48ch}
+.a-list .go{grid-column:2;grid-row:1/3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line);transition:background-color 250ms ease,color 250ms ease,transform 300ms var(--ease-out)}
+.a-list .thumb{display:none}
+.a-list a.on .go,.a-list a:focus-visible .go{background:var(--ink);color:var(--sand-50)}
+@media (hover:hover) and (pointer:fine){.a-list a.on .name{transform:translateX(8px)}}
+.tag-soon{display:inline-block;font-family:var(--f-sans);font-size:.75rem;font-weight:500;letter-spacing:.04em;padding:.15rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.6rem;box-shadow:inset 0 0 0 1px color-mix(in oklab,currentColor 35%,transparent);color:var(--fg-3)}
+@media (max-width:820px){
+  .a-what{grid-template-columns:1fr}.a-frame{display:none}
+  .a-list a{grid-template-columns:76px 1fr auto}
+  .a-list .thumb{display:block;grid-row:1/3;width:76px;height:92px;border-radius:40px 40px 12px 12px;object-fit:cover}
+  .a-list .name,.a-list .line{grid-column:2}.a-list .go{grid-column:3}
+}
+.a-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,1rem + 3vw,4rem);margin-top:3rem;counter-reset:s;list-style:none;padding:0}
+.a-steps li{display:grid;gap:.6rem;align-content:start}
+.a-steps .n{font-family:var(--f-display);font-style:italic;font-size:3.4rem;line-height:1;color:var(--clay-600);font-weight:300}
+.a-steps p{font-family:var(--f-display);font-size:1.3rem;line-height:1.4;font-weight:350;color:var(--ink)}
+@media (max-width:760px){.a-steps{grid-template-columns:1fr}}
+.center-head{text-align:center;display:grid;justify-items:center;gap:.6rem}
+/* invitation — the one card that earns a frame */
+.invite{max-width:860px;margin:3rem auto 0;padding:8px;border-radius:34px;background:rgba(255,251,244,.45);box-shadow:0 0 0 1px rgba(55,43,34,.08),0 40px 80px -40px rgba(62,45,33,.4)}
+.invite-in{border-radius:26px;background:var(--sand-50);display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.invite-date{background:linear-gradient(170deg,var(--sand-200),#D6C0A0);padding:2.2rem 1.8rem;display:grid;align-content:space-between;gap:1.5rem}
+.invite-date .day{font-size:var(--t-small);font-weight:500;letter-spacing:.04em;color:var(--ink-soft)}
+.invite-date .num{font-family:var(--f-display);font-size:clamp(4.5rem,3rem + 5vw,6rem);line-height:.85;font-weight:300;letter-spacing:-.04em}
+.invite-date .month{font-family:var(--f-script);font-size:2.4rem;line-height:1;color:var(--umber-700)}
+.invite-date .time{font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.invite-body{padding:2.2rem clamp(1.4rem,1rem + 2vw,2.6rem);display:grid;gap:1rem;align-content:start}
+.invite-body h3{font-family:var(--f-display);font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem);line-height:1.12;font-weight:400}
+.invite-body .series{font-family:var(--f-display);font-style:italic;color:var(--clay-600);font-size:1.1rem}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0;font-size:.98rem}
+.facts dt{color:var(--fg-3)}
+.facts dd{margin:0;color:var(--ink)}
+.seats{font-weight:500;color:var(--umber-700)}
+@media (max-width:700px){.invite-in{grid-template-columns:1fr}.invite-date{grid-template-columns:auto 1fr;align-items:end}}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin-top:2.5rem}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.news{display:grid;justify-items:center;text-align:center;gap:1.2rem}
+.news-form{display:flex;gap:.5rem;width:min(100%,520px);padding:6px;border-radius:999px;background:rgba(255,251,244,.6);box-shadow:inset 0 0 0 1px var(--line)}
+.news-form input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;padding:0 1rem;color:var(--ink);outline:none}
+.news-form input::placeholder{color:var(--muted)}
+.news-form:focus-within{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.news-msg{min-height:1.6em;font-size:var(--t-small);color:var(--fg-2)}
+.news-msg[data-state="err"]{color:#8A3B22}
+@media (max-width:480px){.news-form{flex-direction:column;border-radius:26px}.news-form input{min-height:48px}.news-form .btn{justify-content:space-between}}
+.foot{padding-block:3rem calc(7rem + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:2rem;font-size:.95rem;color:var(--fg-2)}
+.foot .brand svg{height:52px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.foot a{text-decoration:none}
+@media (hover:hover) and (pointer:fine){.foot a:hover{text-decoration:underline}}
+.foot .contact{display:grid;gap:.3rem;user-select:text}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+
+/* ======================= B · AMURG ======================= */
+.dir-b{--bg:var(--umber-900);--fg:var(--sand-50);--fg-2:#E9DCC8;--fg-3:#C9B79C;--line:rgba(248,243,235,.16);color:var(--fg);background:var(--umber-900)}
+.b-dusk{background:linear-gradient(180deg,var(--umber-900) 0%,var(--umber-800) 60%,var(--umber-700) 100%)}
+.b-dawn{height:clamp(140px,16vw,240px);background:linear-gradient(180deg,var(--umber-700),var(--clay-400) 55%,var(--sand-200))}
+.b-light{background:linear-gradient(180deg,var(--sand-200),var(--sand-100) 60%)}
+.b-hero{position:relative;min-height:min(86svh,860px);display:grid;grid-template-rows:auto 1fr;overflow:hidden;color:var(--sand-50)}
+.b-hero-img{position:absolute;inset:0;z-index:-2}
+.b-hero-img img{width:100%;height:100%;object-fit:cover;object-position:60% 50%;transform:scale(1.06);animation:settle 2.4s var(--ease-out) both}
+@keyframes settle{to{transform:scale(1)}}
+.b-hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(60% 60% at 80% 18%,rgba(255,214,150,.28),rgba(255,214,150,0) 70%),
+             linear-gradient(0deg,var(--umber-900) 0%,rgba(42,30,22,.86) 30%,rgba(42,30,22,.35) 62%,rgba(42,30,22,.55) 100%)}
+.b-hero .site-nav{--fg:var(--sand-50);--fg-2:#EADFCD;--bg:var(--umber-900)}
+.b-hero-copy{align-self:end;padding-bottom:clamp(2.5rem,2rem + 3vw,5rem);display:grid;gap:1.3rem;max-width:860px}
+.b-title{display:grid;gap:.4rem}
+.b-wordmark{width:clamp(120px,7vw + 90px,190px);height:auto;color:var(--sand-50)}
+.b-tag{font-family:var(--f-script);font-size:clamp(3.2rem,2rem + 6vw,7rem);line-height:.95;color:#FFF4E2}
+.b-sub{max-width:44ch;font-size:var(--t-lead);color:#EFE4D3;line-height:1.55}
+.b-hero .btn{--b-bg:var(--sand-50);--b-fg:var(--ink)}
+.b-hero .btn-ghost{--b-bg:transparent;--b-fg:var(--sand-50)}
+.b-section{padding-block:clamp(5rem,3rem + 7vw,9rem)}
+.b-about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,1rem + 4vw,5rem);align-items:end}
+.b-about .script{font-size:var(--t-script);color:#F3D9AE}
+.b-about .lead{color:#F3EADB;font-size:clamp(1.35rem,1.1rem + 1vw,1.9rem)}
+@media (max-width:820px){.b-about{grid-template-columns:1fr}}
+.b-rail-head{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap}
+.b-rail-head .h2{color:var(--sand-50)}
+.b-rail-hint{color:var(--fg-3);font-size:var(--t-small)}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(250px,24vw,330px);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+  padding:2.5rem var(--gutter-r) 1.5rem var(--gutter);scroll-padding-inline:var(--gutter);scrollbar-width:thin;scrollbar-color:rgba(248,243,235,.35) transparent}
+@media (min-width:1212px){.rail{padding-left:calc((100vw - var(--wrap)) / 2);scroll-padding-inline:calc((100vw - var(--wrap)) / 2)}}
+.rail a{scroll-snap-align:start;position:relative;aspect-ratio:3/4.2;border-radius:24px;overflow:hidden;text-decoration:none;color:var(--sand-50);display:grid;align-content:end;padding:1.4rem;isolation:isolate}
+.rail img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 900ms var(--ease-out)}
+.rail a::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(30,21,15,.88) 0%,rgba(30,21,15,.25) 55%,rgba(30,21,15,0) 80%)}
+.rail .name{font-family:var(--f-display);font-size:1.7rem;line-height:1.1;font-weight:400}
+.rail .line{font-size:.95rem;color:#EADFCD;margin-top:.4rem}
+@media (hover:hover) and (pointer:fine){.rail a:hover img{transform:scale(1.05)}}
+.b-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:3rem;list-style:none;padding:0}
+.b-steps li{padding:1.8rem;border-radius:24px;background:rgba(255,248,236,.12);box-shadow:inset 0 0 0 1px rgba(255,248,236,.18);display:grid;gap:1rem;align-content:start}
+.b-steps .n{font-family:var(--f-script);font-size:3rem;line-height:.8;color:#FBE7C4}
+.b-steps p{font-family:var(--f-display);font-size:1.25rem;line-height:1.4;font-weight:350;color:#FFF7EA}
+@media (max-width:760px){.b-steps{grid-template-columns:1fr}}
+.b-steps-wrap .h2{color:#FFF7EA}
+.b-light{--fg:var(--ink);--fg-2:var(--ink-soft);--fg-3:var(--muted);--line:rgba(55,43,34,.16);color:var(--ink)}
+.b-event{margin-top:3rem;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);border-radius:32px;overflow:hidden;background:var(--sand-50);box-shadow:0 40px 80px -40px rgba(42,30,22,.55)}
+.b-event-date{background:var(--umber-800);color:var(--sand-50);padding:2.4rem 2rem;display:grid;align-content:space-between;gap:2rem;position:relative;overflow:hidden}
+.b-event-date::after{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,150,.4),rgba(255,214,150,0) 70%)}
+.b-event-date .num{font-family:var(--f-display);font-size:clamp(5rem,3rem + 5vw,6rem);line-height:.85;font-weight:300;letter-spacing:-.04em}
+.b-event-date .month{font-family:var(--f-script);font-size:2.6rem;line-height:1;color:#F3D9AE}
+.b-event-date .day,.b-event-date .time{color:#E9DCC8;font-variant-numeric:tabular-nums}
+.b-event-body{padding:2.4rem clamp(1.4rem,1rem + 2vw,2.8rem);display:grid;gap:1rem;align-content:start}
+.b-event-body h3{font-family:var(--f-display);font-size:clamp(1.7rem,1.3rem + 1.2vw,2.3rem);line-height:1.1;font-weight:400}
+.b-event-body .series{font-family:var(--f-display);font-style:italic;color:var(--clay-600);font-size:1.1rem}
+@media (max-width:760px){.b-event{grid-template-columns:1fr}}
+.dir-b .foot-band{background:var(--umber-900);color:#E9DCC8;--fg:var(--sand-50);--fg-2:#E9DCC8;--fg-3:#C9B79C}
+
+/* ======================= C · JURNAL ======================= */
+.dir-c{--bg:var(--sand-100);--fg:var(--ink);--fg-2:var(--ink-soft);--fg-3:var(--muted);color:var(--fg);
+  background:radial-gradient(70% 50% at 85% 10%,rgba(255,248,236,.95),rgba(255,248,236,0) 70%),
+             linear-gradient(180deg,var(--sand-100) 0%,var(--sand-100) 40%,var(--sand-200) 75%,#DCCAAE 100%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:.32;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .33 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.c-hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2rem,1rem + 4vw,5rem);align-items:center;padding-block:clamp(2rem,1rem + 4vw,4.5rem) clamp(3rem,2rem + 4vw,6rem)}
+.c-title{display:grid;gap:.6rem}
+.c-brand{font-family:var(--f-script);font-size:clamp(2.2rem,1.7rem + 2vw,3.4rem);color:var(--clay-600);line-height:1}
+.c-tag{font-family:var(--f-display);font-size:var(--t-hero);font-weight:300;line-height:.98;letter-spacing:-.035em;color:var(--ink)}
+.c-tag em{font-style:italic;font-weight:300}
+.c-sub{max-width:44ch;font-size:var(--t-lead);color:var(--fg-2)}
+.c-copy{display:grid;gap:1.6rem}
+.c-vase{--vase-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 26 226 302' preserveAspectRatio='none'%3E%3Cpath d='M133 46 C136 70 131 86 109 101 C76 124 58 163 58 205 C58 250 86 290 119 322 H194 C227 290 255 250 255 205 C255 163 237 124 204 101 C182 86 177 70 180 46 Z'/%3E%3Crect x='109' y='34' width='109' height='12' rx='6'/%3E%3C/svg%3E");position:relative;width:min(100%,460px);justify-self:center;aspect-ratio:226/302}
+.c-vase .masked{position:absolute;inset:0;-webkit-mask:var(--vase-mask) center/100% 100% no-repeat;mask:var(--vase-mask) center/100% 100% no-repeat}
+.c-vase .masked img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.c-vase svg.outline{position:absolute;inset:0;width:100%;height:100%;color:var(--ink);overflow:visible;transform:translate(12px,10px)}
+@media (max-width:860px){.c-hero{grid-template-columns:1fr}.c-vase{width:min(78%,360px);order:-1}}
+.c-section{padding-block:clamp(4.5rem,3rem + 6vw,8rem)}
+.c-entry{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(1.5rem,1rem + 3vw,4rem);border-top:1px solid var(--line);padding-top:2rem}
+.c-entry > .script{font-size:clamp(2.2rem,1.8rem + 1.6vw,3.2rem);color:var(--clay-600)}
+.c-entry .lead{font-size:clamp(1.4rem,1.15rem + 1.1vw,2.1rem);line-height:1.38;color:var(--ink);max-width:30ch}
+.c-entry .lead.drop::first-letter{font-family:var(--f-script);font-size:3.2em;float:left;line-height:.8;padding:.12em .1em 0 0;color:var(--clay-600)}
+@media (max-width:760px){.c-entry{grid-template-columns:1fr}}
+.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3rem clamp(1.5rem,1rem + 3vw,4rem);margin-top:1rem;list-style:none;padding:0}
+.c-grid li:nth-child(even){transform:translateY(5rem)}
+.c-grid a{display:grid;gap:.9rem;text-decoration:none}
+.c-grid .ph{border-radius:6px;overflow:hidden;aspect-ratio:4/3;background:var(--sand-200)}
+.c-grid li:nth-child(3n+1) .ph{aspect-ratio:4/5}
+.c-grid img{width:100%;height:100%;object-fit:cover;transition:transform 900ms var(--ease-out)}
+.c-grid .name{font-family:var(--f-display);font-size:clamp(1.5rem,1.2rem + 1vw,2rem);line-height:1.1;font-weight:400}
+.c-grid .line{color:var(--fg-2);max-width:40ch}
+@media (hover:hover) and (pointer:fine){.c-grid a:hover img{transform:scale(1.04)}}
+@media (max-width:700px){.c-grid{grid-template-columns:1fr}.c-grid li:nth-child(even){transform:none}}
+.c-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:relative}
+.c-steps::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--line)}
+.c-steps li{position:relative;padding:2.4rem 1.5rem 0 0;display:grid;gap:.6rem}
+.c-steps li::before{content:"";position:absolute;top:4px;left:0;width:11px;height:11px;border-radius:50%;background:var(--sand-100);box-shadow:inset 0 0 0 1.5px var(--clay-500)}
+.c-steps .n{font-family:var(--f-display);font-style:italic;color:var(--clay-600);font-size:1.1rem}
+.c-steps p{font-family:var(--f-display);font-size:1.3rem;line-height:1.4;font-weight:350}
+@media (max-width:760px){.c-steps{grid-template-columns:1fr;gap:1.5rem}.c-steps::before{left:5px;right:auto;top:0;bottom:0;width:1px;height:auto}.c-steps li{padding:0 0 0 2rem}.c-steps li::before{top:.55rem}}
+.c-event{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(1.5rem,1rem + 3vw,4rem);border-top:1px solid var(--line);padding-top:2rem}
+.c-date{display:grid;align-content:start;gap:.2rem}
+.c-date .num{font-family:var(--f-display);font-size:6rem;line-height:.85;font-weight:300;letter-spacing:-.04em}
+.c-date .month{font-family:var(--f-script);font-size:2.6rem;color:var(--clay-600);line-height:1}
+.c-date .day,.c-date .time{color:var(--fg-2);font-variant-numeric:tabular-nums}
+.c-event-body{display:grid;gap:1.1rem;max-width:640px}
+.c-event-body h3{font-family:var(--f-display);font-size:clamp(1.9rem,1.4rem + 1.6vw,2.8rem);line-height:1.08;font-weight:350;letter-spacing:-.01em}
+.c-event-body .series{font-family:var(--f-display);font-style:italic;color:var(--clay-600);font-size:1.15rem}
+@media (max-width:760px){.c-event{grid-template-columns:1fr}.c-date{grid-template-columns:auto 1fr;align-items:end;column-gap:1rem}}
+
+/* ---------- review switcher (mockup chrome, not part of the site) ---------- */
+.switcher{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;
+  display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(30,22,16,.72);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:0 16px 40px -16px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08);max-width:calc(100vw - 32px)}
+.switcher button{position:relative;z-index:1;min-height:42px;padding:0 1.05rem;border-radius:999px;color:rgba(248,243,235,.72);font-size:.9rem;white-space:nowrap;transition:color 220ms ease}
+.switcher button b{font-weight:600;margin-right:.35rem;font-family:var(--f-display)}
+.switcher button[aria-selected="true"]{color:var(--ink)}
+.switcher .ind{position:absolute;z-index:0;top:5px;bottom:5px;left:0;border-radius:999px;background:var(--sand-50);transition:transform 320ms var(--ease-in-out),width 320ms var(--ease-in-out)}
+@media (max-width:420px){.switcher button{padding:0 .75rem;font-size:.85rem}}
+
+@media (prefers-reduced-motion:reduce){
+  .entering [data-enter]{animation:fadein 300ms ease both;animation-delay:0ms}
+  .entering .drawn path{animation:none}
+  .dir-a .light,.b-hero-img img{animation:none}
+  .switcher .ind,.a-frame img,.sheet a{transition-duration:0ms}
+  .a-list .name{transition:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="vase" viewBox="44 26 226 302"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M115 40 H212" stroke-width="12"/><path d="M133 46 C136 70 131 86 109 101 C76 124 58 163 58 205 C58 250 86 290 119 322 H194 C227 290 255 250 255 205 C255 163 237 124 204 101 C182 86 177 70 180 46" stroke-width="7"/><path d="M78 184 Q160 197 250 180 M64 238 Q160 250 252 233" stroke-width="6"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 16 16"><path d="M3.5 12.5 12.5 3.5M5.5 3.5h7v7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></symbol>
+    <symbol id="wordmark" viewBox="152.8 37.0 293.8 170.5"><g fill="currentColor"><path d="M174.225 94.055H210.495L210.82 97.955H173.76999999999998ZM179.165 128.375Q179.165 129.09 178.64499999999998 129.54500000000002Q178.125 130.0 176.95499999999998 130.0H156.935Q155.89499999999998 130.0 155.34249999999997 129.54500000000002Q154.79 129.09 154.79 128.375Q154.79 127.79 155.14749999999998 127.4Q155.505 127.01 156.35 126.685L158.885 125.84Q160.76999999999998 125.06 162.1675 123.3375Q163.565 121.615 164.86499999999998 117.52L186.64 48.230000000000004Q187.355 45.825 186.83499999999998 44.59Q186.315 43.355000000000004 184.105 42.64Q182.805 42.11999999999999 182.285 41.69749999999999Q181.765 41.27499999999999 181.765 40.625Q181.765 39.845 182.3175 39.4225Q182.87 39.0 183.975 39.0H210.43Q211.535 39.0 212.08749999999998 39.4225Q212.64 39.845 212.64 40.56Q212.64 41.27499999999999 212.12 41.73Q211.6 42.185 210.365 42.575Q208.60999999999999 42.89999999999999 208.2525 43.67999999999999Q207.89499999999998 44.459999999999994 208.545 46.28L233.18 121.42Q233.89499999999998 123.76 235.0325 124.86500000000001Q236.17000000000002 125.97 238.12 126.425Q239.29 126.815 239.68 127.2375Q240.07 127.66 240.07 128.375Q240.07 129.09 239.51749999999998 129.54500000000002Q238.96499999999997 130.0 237.86 130.0H210.95Q209.845 130.0 209.29250000000002 129.54500000000002Q208.74 129.09 208.74 128.375Q208.74 127.725 209.1625 127.335Q209.58499999999998 126.945 210.495 126.685L214.265 126.035Q215.89 125.645 216.0525 124.63749999999999Q216.215 123.63 215.565 121.615L190.93 45.435L192.685 43.55L169.60999999999999 117.13Q168.82999999999998 119.66499999999999 169.1225 121.35499999999999Q169.415 123.045 170.71499999999997 124.1175Q172.015 125.19 174.29 125.97L177.475 126.685Q178.32 126.945 178.7425 127.335Q179.165 127.725 179.165 128.375ZM317.48499999999996 40.625Q317.48499999999996 39.845 318.03749999999997 39.4225Q318.59 39.0 319.63 39.0H340.49499999999995Q341.59999999999997 39.0 342.12 39.4225Q342.64 39.845 342.64 40.625Q342.64 41.209999999999994 342.28249999999997 41.567499999999995Q341.92499999999995 41.925 340.94999999999993 42.315L338.34999999999997 43.16Q336.27 43.94 334.74249999999995 45.857499999999995Q333.215 47.77499999999999 332.04499999999996 51.61L309.88 119.66499999999999Q309.35999999999996 121.28999999999999 309.16499999999996 122.46Q308.96999999999997 123.63 308.96999999999997 124.865V128.05Q308.96999999999997 128.96 308.44999999999993 129.48000000000002Q307.92999999999995 130.0 307.085 130.0H293.10999999999996Q292.2 130.0 291.67999999999995 129.48000000000002Q291.15999999999997 128.96 291.15999999999997 127.985V124.865Q291.15999999999997 123.89 290.9 122.85Q290.64 121.81 290.18499999999995 120.38L265.41999999999996 46.605000000000004Q264.835 45.045 264.25 44.33Q263.66499999999996 43.614999999999995 262.62499999999994 43.224999999999994L259.635 42.379999999999995Q258.01 41.795 258.01 40.625Q258.01 39.845 258.5625 39.4225Q259.11499999999995 39.0 260.21999999999997 39.0H290.05499999999995Q291.15999999999997 39.0 291.7125 39.4225Q292.265 39.845 292.265 40.625Q292.265 41.27499999999999 291.80999999999995 41.66499999999999Q291.35499999999996 42.05499999999999 290.44499999999994 42.315L285.11499999999995 43.16Q283.55499999999995 43.55 283.1975 44.525Q282.84 45.5 283.55499999999995 47.58L307.73499999999996 120.51L303.835 124.605L327.68999999999994 51.41499999999999Q328.72999999999996 48.16499999999999 327.85249999999996 46.11749999999999Q326.97499999999997 44.06999999999999 323.27 43.03L319.17499999999995 42.315Q318.33 41.989999999999995 317.90749999999997 41.63249999999999Q317.48499999999996 41.27499999999999 317.48499999999996 40.625ZM378.7149999999999 94.055H414.98499999999996L415.30999999999995 97.955H378.25999999999993ZM383.655 128.375Q383.655 129.09 383.135 129.54500000000002Q382.61499999999995 130.0 381.44499999999994 130.0H361.42499999999995Q360.38499999999993 130.0 359.8325 129.54500000000002Q359.28 129.09 359.28 128.375Q359.28 127.79 359.63749999999993 127.4Q359.99499999999995 127.01 360.8399999999999 126.685L363.37499999999994 125.84Q365.25999999999993 125.06 366.6574999999999 123.3375Q368.05499999999995 121.615 369.35499999999996 117.52L391.12999999999994 48.230000000000004Q391.84499999999997 45.825 391.32499999999993 44.59Q390.80499999999995 43.355000000000004 388.59499999999997 42.64Q387.29499999999996 42.11999999999999 386.775 41.69749999999999Q386.25499999999994 41.27499999999999 386.25499999999994 40.625Q386.25499999999994 39.845 386.80749999999995 39.4225Q387.35999999999996 39.0 388.4649999999999 39.0H414.91999999999996Q416.025 39.0 416.5775 39.4225Q417.12999999999994 39.845 417.12999999999994 40.56Q417.12999999999994 41.27499999999999 416.6099999999999 41.73Q416.0899999999999 42.185 414.85499999999996 42.575Q413.09999999999997 42.89999999999999 412.74249999999995 43.67999999999999Q412.38499999999993 44.459999999999994 413.03499999999997 46.28L437.66999999999996 121.42Q438.38499999999993 123.76 439.5224999999999 124.86500000000001Q440.65999999999997 125.97 442.60999999999996 126.425Q443.78 126.815 444.16999999999996 127.2375Q444.55999999999995 127.66 444.55999999999995 128.375Q444.55999999999995 129.09 444.00749999999994 129.54500000000002Q443.4549999999999 130.0 442.34999999999997 130.0H415.43999999999994Q414.3349999999999 130.0 413.7824999999999 129.54500000000002Q413.22999999999996 129.09 413.22999999999996 128.375Q413.22999999999996 127.725 413.6524999999999 127.335Q414.07499999999993 126.945 414.98499999999996 126.685L418.75499999999994 126.035Q420.37999999999994 125.645 420.5424999999999 124.63749999999999Q420.7049999999999 123.63 420.05499999999995 121.615L395.41999999999996 45.435L397.17499999999995 43.55L374.09999999999997 117.13Q373.31999999999994 119.66499999999999 373.61249999999995 121.35499999999999Q373.905 123.045 375.2049999999999 124.1175Q376.50499999999994 125.19 378.78 125.97L381.9649999999999 126.685Q382.80999999999995 126.945 383.23249999999996 127.335Q383.655 127.725 383.655 128.375Z"/><path d="M163.95 199.6H175.05L174.39000000000001 196.6H164.64000000000001ZM169.44 189.94 172.8 197.74 172.86 198.61 175.71 205.0H179.73000000000002L169.44 182.83L159.18 205.0H163.17000000000002L166.08 198.43L166.14000000000001 197.65ZM199.07999999999998 194.98 205.73999999999998 205.0H210.02999999999997L202.89 194.98ZM194.73 184.0V205.0H198.26999999999998V184.0ZM196.82999999999998 187.06H201.05999999999997Q202.29 187.06 203.19 187.48000000000002Q204.08999999999997 187.9 204.59999999999997 188.68Q205.10999999999999 189.46 205.10999999999999 190.6Q205.10999999999999 191.71 204.59999999999997 192.505Q204.08999999999997 193.3 203.19 193.705Q202.29 194.11 201.05999999999997 194.11H196.82999999999998V197.05H201.20999999999998Q203.51999999999998 197.05 205.2 196.24Q206.88 195.43 207.825 193.96Q208.76999999999998 192.49 208.76999999999998 190.51Q208.76999999999998 188.53 207.825 187.075Q206.88 185.62 205.2 184.81Q203.51999999999998 184.0 201.20999999999998 184.0H196.82999999999998ZM223.07999999999998 187.27H228.62999999999997V205.0H232.17V187.27H237.71999999999997V184.0H223.07999999999998ZM278.84999999999997 193.63 288.96 205.0H292.77L281.66999999999996 192.55Q280.65 191.38 279.85499999999996 190.465Q279.05999999999995 189.55 279.05999999999995 188.59Q279.05999999999995 187.6 279.67499999999995 186.95499999999998Q280.28999999999996 186.31 281.42999999999995 186.31Q282.17999999999995 186.31 282.7049999999999 186.625Q283.22999999999996 186.94 283.515 187.45Q283.79999999999995 187.96 283.79999999999995 188.62Q283.79999999999995 189.55 282.85499999999996 190.555Q281.90999999999997 191.56 280.22999999999996 192.46Q279.63 192.76 278.745 193.14999999999998Q277.85999999999996 193.54 276.91499999999996 194.065Q275.96999999999997 194.59 275.17499999999995 195.325Q274.38 196.06 273.87 197.07999999999998Q273.35999999999996 198.1 273.35999999999996 199.45Q273.35999999999996 201.25 274.34999999999997 202.58499999999998Q275.34 203.92 276.92999999999995 204.625Q278.52 205.33 280.34999999999997 205.33Q282.41999999999996 205.33 284.18999999999994 204.58Q285.96 203.83 287.46 202.615Q288.96 201.4 290.235 199.885Q291.51 198.37 292.61999999999995 196.84L290.28 195.22Q289.28999999999996 196.66 288.17999999999995 197.965Q287.07 199.27 285.855 200.275Q284.64 201.28 283.34999999999997 201.88Q282.05999999999995 202.48 280.67999999999995 202.48Q279.53999999999996 202.48 278.66999999999996 202.06Q277.79999999999995 201.64 277.30499999999995 200.90499999999997Q276.80999999999995 200.17 276.80999999999995 199.21Q276.80999999999995 198.16 277.3349999999999 197.425Q277.85999999999996 196.69 278.68499999999995 196.15Q279.51 195.61 280.43999999999994 195.16000000000003Q281.36999999999995 194.71 282.17999999999995 194.2Q283.32 193.51 284.18999999999994 192.85Q285.05999999999995 192.19 285.65999999999997 191.5Q286.26 190.81 286.575 190.06Q286.89 189.31 286.89 188.44Q286.89 187.18 286.26 186.085Q285.63 184.99 284.41499999999996 184.28500000000003Q283.2 183.58 281.46 183.58Q279.74999999999994 183.58 278.47499999999997 184.22500000000002Q277.2 184.87 276.495 185.98000000000002Q275.78999999999996 187.09 275.78999999999996 188.47Q275.78999999999996 189.58 276.31499999999994 190.51Q276.84 191.44 277.55999999999995 192.20499999999998Q278.28 192.97 278.84999999999997 193.63ZM331.26 198.22 328.61999999999995 200.08Q329.30999999999995 201.52 330.49499999999995 202.75Q331.67999999999995 203.98 333.255 204.71499999999997Q334.83 205.45 336.65999999999997 205.45Q338.01 205.45 339.255 205.015Q340.49999999999994 204.58 341.48999999999995 203.78500000000003Q342.47999999999996 202.99 343.06499999999994 201.82Q343.65 200.65 343.65 199.18Q343.65 197.8 343.16999999999996 196.765Q342.68999999999994 195.73 341.92499999999995 194.98Q341.15999999999997 194.23 340.215 193.72Q339.27 193.21 338.30999999999995 192.88Q336.62999999999994 192.28 335.5799999999999 191.70999999999998Q334.53 191.14 334.03499999999997 190.495Q333.53999999999996 189.85 333.53999999999996 189.04Q333.53999999999996 188.14 334.22999999999996 187.46499999999997Q334.91999999999996 186.79 336.39 186.79Q337.43999999999994 186.79 338.23499999999996 187.195Q339.03 187.6 339.63 188.27499999999998Q340.22999999999996 188.95 340.65 189.73L343.49999999999994 188.11Q342.98999999999995 187.0 342.03 185.98000000000002Q341.06999999999994 184.96 339.68999999999994 184.28500000000003Q338.30999999999995 183.61 336.45 183.61Q334.55999999999995 183.61 333.07499999999993 184.33Q331.59 185.05 330.71999999999997 186.325Q329.84999999999997 187.6 329.84999999999997 189.28Q329.84999999999997 190.75 330.41999999999996 191.785Q330.98999999999995 192.82 331.85999999999996 193.52499999999998Q332.72999999999996 194.23 333.68999999999994 194.695Q334.65 195.16 335.42999999999995 195.43Q336.74999999999994 195.91 337.77 196.405Q338.78999999999996 196.9 339.34499999999997 197.60500000000002Q339.9 198.31 339.9 199.45Q339.9 200.71 339.0 201.49Q338.09999999999997 202.27 336.65999999999997 202.27Q335.48999999999995 202.27 334.515 201.76Q333.53999999999996 201.25 332.745 200.35Q331.95 199.45 331.26 198.22ZM362.4 194.5Q362.4 192.34 363.33 190.64499999999998Q364.26 188.95 365.865 187.99Q367.46999999999997 187.03 369.53999999999996 187.03Q371.67 187.03 373.275 187.99Q374.88 188.95 375.78 190.64499999999998Q376.68 192.34 376.68 194.5Q376.68 196.66 375.765 198.34Q374.84999999999997 200.02 373.245 200.995Q371.64 201.97 369.53999999999996 201.97Q367.46999999999997 201.97 365.865 200.995Q364.26 200.02 363.33 198.34Q362.4 196.66 362.4 194.5ZM358.65 194.5Q358.65 196.84 359.46 198.85000000000002Q360.27 200.86 361.74 202.33Q363.21 203.8 365.205 204.625Q367.2 205.45 369.53999999999996 205.45Q371.94 205.45 373.91999999999996 204.625Q375.9 203.8 377.37 202.33Q378.84 200.86 379.65 198.85000000000002Q380.46 196.84 380.46 194.5Q380.46 192.13 379.65 190.15Q378.84 188.17000000000002 377.355 186.715Q375.87 185.26 373.89 184.435Q371.90999999999997 183.61 369.53999999999996 183.61Q367.23 183.61 365.235 184.435Q363.24 185.26 361.755 186.715Q360.27 188.17000000000002 359.46 190.15Q358.65 192.13 358.65 194.5ZM396.39 184.0V198.1Q396.39 199.84 396.945 201.20499999999998Q397.5 202.57 398.52 203.53Q399.53999999999996 204.49 400.95 205.0Q402.36 205.51 404.03999999999996 205.51Q405.71999999999997 205.51 407.13 205.0Q408.53999999999996 204.49 409.575 203.53Q410.61 202.57 411.16499999999996 201.20499999999998Q411.71999999999997 199.84 411.71999999999997 198.1V184.0H408.15V197.95Q408.15 199.87 407.115 201.07Q406.08 202.27 404.03999999999996 202.27Q402.03 202.27 400.98 201.07Q399.93 199.87 399.93 197.95V184.0ZM428.82 184.0V205.0H440.70000000000005V201.82H432.36V184.0Z"/></g></symbol>
+    <symbol id="lockup" viewBox="-6 6 507.9 196"><g transform="translate(-40 -12) scale(0.66)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M115 40 H212" stroke-width="12"/><path d="M133 46 C136 70 131 86 109 101 C76 124 58 163 58 205 C58 250 86 290 119 322 H194 C227 290 255 250 255 205 C255 163 237 124 204 101 C182 86 177 70 180 46" stroke-width="7"/><path d="M78 184 Q160 197 250 180 M64 238 Q160 250 252 233" stroke-width="6"/></g><g fill="currentColor"><path d="M267.16 89.58500000000001H297.85L298.125 92.885H266.775ZM271.34 118.625Q271.34 119.23 270.9 119.61500000000001Q270.46 120.0 269.47 120.0H252.53Q251.65 120.0 251.1825 119.61500000000001Q250.715 119.23 250.715 118.625Q250.715 118.13 251.01749999999998 117.8Q251.32 117.47 252.035 117.195L254.18 116.48Q255.775 115.82 256.9575 114.3625Q258.14 112.905 259.24 109.44L277.665 50.81Q278.27 48.775000000000006 277.83 47.730000000000004Q277.39 46.685 275.52 46.08Q274.42 45.64 273.98 45.2825Q273.54 44.925 273.54 44.375Q273.54 43.715 274.00750000000005 43.3575Q274.475 43.0 275.41 43.0H297.795Q298.73 43.0 299.1975 43.3575Q299.665 43.715 299.665 44.31999999999999Q299.665 44.925 299.225 45.309999999999995Q298.785 45.69499999999999 297.74 46.025000000000006Q296.255 46.3 295.9525 46.96Q295.65 47.620000000000005 296.2 49.16L317.045 112.74Q317.65 114.72 318.61249999999995 115.655Q319.575 116.59 321.225 116.975Q322.21500000000003 117.305 322.545 117.6625Q322.875 118.02 322.875 118.625Q322.875 119.23 322.4075 119.61500000000001Q321.94 120.0 321.005 120.0H298.235Q297.3 120.0 296.8325 119.61500000000001Q296.365 119.23 296.365 118.625Q296.365 118.075 296.72249999999997 117.745Q297.08 117.415 297.85 117.195L301.04 116.645Q302.415 116.315 302.5525 115.4625Q302.69 114.61 302.14 112.905L281.295 48.44499999999999L282.78 46.849999999999994L263.255 109.11Q262.595 111.255 262.8425 112.685Q263.09 114.115 264.19 115.02250000000001Q265.29 115.93 267.215 116.59L269.91 117.195Q270.625 117.415 270.98249999999996 117.745Q271.34 118.075 271.34 118.625ZM388.38000000000005 44.375Q388.38000000000005 43.715 388.8475000000001 43.3575Q389.31500000000005 43.0 390.19500000000005 43.0H407.85Q408.785 43.0 409.225 43.3575Q409.665 43.715 409.665 44.375Q409.665 44.870000000000005 409.36250000000007 45.1725Q409.06000000000006 45.474999999999994 408.235 45.80499999999999L406.035 46.519999999999996Q404.27500000000003 47.17999999999999 402.9825000000001 48.802499999999995Q401.69000000000005 50.425 400.70000000000005 53.67L381.94500000000005 111.255Q381.50500000000005 112.63 381.34000000000003 113.62Q381.175 114.61 381.175 115.655V118.35Q381.175 119.12 380.735 119.56Q380.295 120.0 379.58000000000004 120.0H367.75500000000005Q366.985 120.0 366.545 119.56Q366.105 119.12 366.105 118.295V115.655Q366.105 114.83 365.885 113.94999999999999Q365.665 113.07 365.28000000000003 111.86L344.32500000000005 49.435Q343.83000000000004 48.114999999999995 343.33500000000004 47.51Q342.84000000000003 46.905 341.96000000000004 46.575L339.43 45.86Q338.055 45.364999999999995 338.055 44.375Q338.055 43.715 338.52250000000004 43.3575Q338.99 43.0 339.925 43.0H365.17Q366.105 43.0 366.5725 43.3575Q367.04 43.715 367.04 44.375Q367.04 44.925 366.65500000000003 45.254999999999995Q366.27000000000004 45.584999999999994 365.50000000000006 45.80499999999999L360.99 46.519999999999996Q359.67 46.849999999999994 359.36750000000006 47.675Q359.06500000000005 48.5 359.67 50.260000000000005L380.13000000000005 111.97L376.83000000000004 115.435L397.01500000000004 53.504999999999995Q397.89500000000004 50.754999999999995 397.15250000000003 49.0225Q396.41 47.290000000000006 393.27500000000003 46.41L389.81000000000006 45.80499999999999Q389.095 45.53 388.73750000000007 45.2275Q388.38000000000005 44.925 388.38000000000005 44.375ZM440.19000000000005 89.58500000000001H470.88000000000005L471.15500000000003 92.885H439.805ZM444.37 118.625Q444.37 119.23 443.93 119.61500000000001Q443.49 120.0 442.5 120.0H425.56Q424.68 120.0 424.2125 119.61500000000001Q423.745 119.23 423.745 118.625Q423.745 118.13 424.0475 117.8Q424.35 117.47 425.06500000000005 117.195L427.21000000000004 116.48Q428.805 115.82 429.9875 114.3625Q431.17 112.905 432.27000000000004 109.44L450.69500000000005 50.81Q451.3 48.775000000000006 450.86 47.730000000000004Q450.42 46.685 448.55 46.08Q447.45000000000005 45.64 447.01000000000005 45.2825Q446.57000000000005 44.925 446.57000000000005 44.375Q446.57000000000005 43.715 447.0375 43.3575Q447.50500000000005 43.0 448.44000000000005 43.0H470.82500000000005Q471.76000000000005 43.0 472.2275000000001 43.3575Q472.69500000000005 43.715 472.69500000000005 44.31999999999999Q472.69500000000005 44.925 472.25500000000005 45.309999999999995Q471.81500000000005 45.69499999999999 470.77000000000004 46.025000000000006Q469.285 46.3 468.9825 46.96Q468.68 47.620000000000005 469.23 49.16L490.07500000000005 112.74Q490.68000000000006 114.72 491.64250000000004 115.655Q492.605 116.59 494.255 116.975Q495.245 117.305 495.57500000000005 117.6625Q495.90500000000003 118.02 495.90500000000003 118.625Q495.90500000000003 119.23 495.4375 119.61500000000001Q494.97 120.0 494.035 120.0H471.26500000000004Q470.33000000000004 120.0 469.86250000000007 119.61500000000001Q469.39500000000004 119.23 469.39500000000004 118.625Q469.39500000000004 118.075 469.75250000000005 117.745Q470.11 117.415 470.88000000000005 117.195L474.07000000000005 116.645Q475.44500000000005 116.315 475.58250000000004 115.4625Q475.72 114.61 475.17 112.905L454.32500000000005 48.44499999999999L455.81000000000006 46.849999999999994L436.285 109.11Q435.62500000000006 111.255 435.87250000000006 112.685Q436.12 114.115 437.22 115.02250000000001Q438.32000000000005 115.93 440.245 116.59L442.94000000000005 117.195Q443.65500000000003 117.415 444.01250000000005 117.745Q444.37 118.075 444.37 118.625Z"/><path d="M256.05 173.5H265.3L264.75 171.0H256.625ZM260.625 165.45 263.425 171.95 263.475 172.675 265.85 178.0H269.2L260.625 159.525L252.075 178.0H255.4L257.825 172.525L257.875 171.875ZM285.325 169.65 290.875 178.0H294.45L288.5 169.65ZM281.7 160.5V178.0H284.65V160.5ZM283.45 163.05H286.975Q288.0 163.05 288.75 163.4Q289.5 163.75 289.925 164.4Q290.35 165.05 290.35 166.0Q290.35 166.925 289.925 167.5875Q289.5 168.25 288.75 168.5875Q288.0 168.925 286.975 168.925H283.45V171.375H287.1Q289.025 171.375 290.42499999999995 170.7Q291.825 170.025 292.61249999999995 168.8Q293.4 167.575 293.4 165.925Q293.4 164.275 292.61249999999995 163.0625Q291.825 161.85 290.42499999999995 161.175Q289.025 160.5 287.1 160.5H283.45ZM305.325 163.225H309.95V178.0H312.9V163.225H317.525V160.5H305.325ZM351.8 168.525 360.225 178.0H363.40000000000003L354.15000000000003 167.625Q353.3 166.65 352.63750000000005 165.8875Q351.975 165.125 351.975 164.325Q351.975 163.5 352.4875 162.9625Q353.0 162.425 353.95000000000005 162.425Q354.57500000000005 162.425 355.01250000000005 162.6875Q355.45000000000005 162.95 355.6875 163.375Q355.925 163.8 355.925 164.35Q355.925 165.125 355.13750000000005 165.9625Q354.35 166.8 352.95000000000005 167.55Q352.45000000000005 167.8 351.71250000000003 168.125Q350.975 168.45 350.1875 168.8875Q349.40000000000003 169.325 348.73750000000007 169.9375Q348.07500000000005 170.55 347.65000000000003 171.4Q347.225 172.25 347.225 173.375Q347.225 174.875 348.05 175.9875Q348.875 177.1 350.20000000000005 177.6875Q351.52500000000003 178.275 353.05 178.275Q354.77500000000003 178.275 356.25 177.65Q357.725 177.025 358.975 176.0125Q360.225 175.0 361.2875 173.7375Q362.35 172.475 363.27500000000003 171.2L361.32500000000005 169.85Q360.5 171.05 359.57500000000005 172.1375Q358.65000000000003 173.225 357.63750000000005 174.0625Q356.625 174.9 355.55 175.4Q354.475 175.9 353.32500000000005 175.9Q352.375 175.9 351.65 175.55Q350.925 175.2 350.51250000000005 174.58749999999998Q350.1 173.975 350.1 173.175Q350.1 172.3 350.5375 171.6875Q350.975 171.075 351.6625 170.625Q352.35 170.175 353.125 169.8Q353.90000000000003 169.425 354.57500000000005 169.0Q355.52500000000003 168.425 356.25 167.875Q356.975 167.325 357.475 166.75Q357.975 166.175 358.2375 165.55Q358.5 164.925 358.5 164.2Q358.5 163.15 357.975 162.2375Q357.45000000000005 161.325 356.4375 160.7375Q355.425 160.15 353.975 160.15Q352.55 160.15 351.4875 160.6875Q350.425 161.225 349.8375 162.14999999999998Q349.25 163.075 349.25 164.225Q349.25 165.15 349.6875 165.925Q350.125 166.7 350.725 167.33749999999998Q351.32500000000005 167.975 351.8 168.525ZM395.475 172.35 393.275 173.9Q393.85 175.1 394.8375 176.125Q395.825 177.15 397.1375 177.7625Q398.45 178.375 399.975 178.375Q401.1 178.375 402.13750000000005 178.0125Q403.175 177.65 404.0 176.9875Q404.825 176.325 405.3125 175.35Q405.8 174.375 405.8 173.15Q405.8 172.0 405.4 171.1375Q405.0 170.275 404.3625 169.65Q403.725 169.025 402.9375 168.60000000000002Q402.15 168.175 401.35 167.9Q399.95 167.4 399.075 166.925Q398.2 166.45 397.7875 165.9125Q397.375 165.375 397.375 164.7Q397.375 163.95 397.95 163.3875Q398.525 162.825 399.75 162.825Q400.625 162.825 401.2875 163.1625Q401.95 163.5 402.45 164.0625Q402.95 164.625 403.3 165.275L405.675 163.925Q405.25 163.0 404.45 162.15Q403.65 161.3 402.5 160.7375Q401.35 160.175 399.8 160.175Q398.225 160.175 396.9875 160.775Q395.75 161.375 395.025 162.4375Q394.3 163.5 394.3 164.9Q394.3 166.125 394.775 166.9875Q395.25 167.85 395.975 168.4375Q396.7 169.025 397.5 169.41250000000002Q398.3 169.8 398.95 170.025Q400.05 170.425 400.9 170.8375Q401.75 171.25 402.2125 171.8375Q402.675 172.425 402.675 173.375Q402.675 174.425 401.925 175.075Q401.175 175.725 399.975 175.725Q399.0 175.725 398.1875 175.3Q397.375 174.875 396.7125 174.125Q396.05 173.375 395.475 172.35ZM421.425 169.25Q421.425 167.45 422.20000000000005 166.0375Q422.975 164.625 424.3125 163.825Q425.65000000000003 163.025 427.375 163.025Q429.15000000000003 163.025 430.48750000000007 163.825Q431.82500000000005 164.625 432.57500000000005 166.0375Q433.32500000000005 167.45 433.32500000000005 169.25Q433.32500000000005 171.05 432.5625 172.45Q431.8 173.85 430.4625 174.6625Q429.125 175.475 427.375 175.475Q425.65000000000003 175.475 424.3125 174.6625Q422.975 173.85 422.20000000000005 172.45Q421.425 171.05 421.425 169.25ZM418.3 169.25Q418.3 171.2 418.975 172.875Q419.65000000000003 174.55 420.875 175.775Q422.1 177.0 423.76250000000005 177.6875Q425.425 178.375 427.375 178.375Q429.375 178.375 431.025 177.6875Q432.675 177.0 433.9 175.775Q435.125 174.55 435.8 172.875Q436.475 171.2 436.475 169.25Q436.475 167.275 435.8 165.625Q435.125 163.975 433.88750000000005 162.7625Q432.65000000000003 161.55 431.0 160.8625Q429.35 160.175 427.375 160.175Q425.45000000000005 160.175 423.7875 160.8625Q422.125 161.55 420.88750000000005 162.7625Q419.65000000000003 163.975 418.975 165.625Q418.3 167.275 418.3 169.25ZM449.75 160.5V172.25Q449.75 173.7 450.2125 174.83749999999998Q450.675 175.975 451.525 176.77499999999998Q452.375 177.575 453.55 178.0Q454.725 178.425 456.125 178.425Q457.52500000000003 178.425 458.70000000000005 178.0Q459.875 177.575 460.7375 176.77499999999998Q461.6 175.975 462.0625 174.83749999999998Q462.52500000000003 173.7 462.52500000000003 172.25V160.5H459.55V172.125Q459.55 173.725 458.6875 174.725Q457.825 175.725 456.125 175.725Q454.45 175.725 453.575 174.725Q452.7 173.725 452.7 172.125V160.5ZM476.775 160.5V178.0H486.675V175.35H479.72499999999997V160.5Z"/></g></symbol>
+  </defs>
+</svg>
+
+<canvas id="sprites" aria-hidden="true"></canvas>
+
+<main id="stage">
+
+<!-- ===================== A · LINIȘTE ===================== -->
+<div class="dir dir-a" data-dir="a">
+  <div class="light" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="site-nav" data-enter style="--i:0">
+      <a class="brand" href="#" aria-label="AVA Art &amp; Soul"><svg viewBox="0 0 1 1" class="lockup-svg"><use href="#lockup"/></svg></a>
+      <nav class="nav-links" data-navlinks></nav>
+      <div class="nav-end" data-navend></div>
+    </header>
+    <section class="a-hero">
+      <h1 class="a-title">
+        <svg class="a-vase drawn" viewBox="44 26 226 302" aria-hidden="true" data-enter style="--i:0"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M115 40 H212" stroke-width="12"/><path pathLength="1" d="M133 46 C136 70 131 86 109 101 C76 124 58 163 58 205 C58 250 86 290 119 322 H194 C227 290 255 250 255 205 C255 163 237 124 204 101 C182 86 177 70 180 46" stroke-width="7"/><path pathLength="1" d="M78 184 Q160 197 250 180 M64 238 Q160 250 252 233" stroke-width="6"/></g></svg>
+        <span class="sr-only">AVA Art &amp; Soul — </span>
+        <svg class="a-wordmark" aria-hidden="true" data-enter style="--i:1"><use href="#wordmark"/></svg>
+        <span class="a-tag" data-t="hero.tag" data-enter style="--i:2"></span>
+      </h1>
+      <p class="a-sub" data-t="hero.sub" data-enter style="--i:3"></p>
+      <div class="cta-row" data-enter style="--i:4">
+        <a class="btn" href="#" data-glow><span data-t="cta.workshops"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></a>
+        <a class="btn btn-ghost" href="#" data-t="cta.companies"></a>
+      </div>
+      <figure class="a-photo" data-enter style="--i:5"><img src="img/hero-hands-warm.webp" alt="" data-alt="alt.heroA" width="2200" height="1467" fetchpriority="high"></figure>
+    </section>
+
+    <section class="a-section a-about">
+      <h2 class="script reveal" data-t="about.h"></h2>
+      <p class="lead reveal" data-t="about.p"></p>
+      <a class="textlink" href="#"><span data-t="about.link"></span><svg width="14" height="14"><use href="#arrow"/></svg></a>
+    </section>
+
+    <section class="a-section a-what" aria-labelledby="a-what-h" style="padding-top:0">
+      <div class="a-what-head"><h2 class="script" id="a-what-h" data-t="what.h"></h2></div>
+      <div class="a-frame" aria-hidden="true">
+        <img class="on" src="img/card-group.webp" alt="" loading="lazy"><img src="img/card-companies.webp" alt="" loading="lazy"><img src="img/card-counselling.webp" alt="" loading="lazy"><img src="img/card-private.webp" alt="" loading="lazy"><img src="img/card-retreat.webp" alt="" loading="lazy">
+      </div>
+      <ul class="a-list" data-services="a"></ul>
+    </section>
+
+    <section class="a-section">
+      <div class="center-head"><h2 class="h2 reveal" data-t="steps.h"></h2></div>
+      <ol class="a-steps" data-steps="a"></ol>
+    </section>
+
+    <section class="a-section" style="padding-top:0">
+      <div class="center-head"><h2 class="h2 reveal" data-t="event.h"></h2></div>
+      <article class="invite">
+        <div class="invite-in">
+          <div class="invite-date">
+            <div><div class="day" data-t="event.day"></div><div class="num">15</div><div class="month" data-t="event.month"></div></div>
+            <div class="time" data-t="event.time"></div>
+          </div>
+          <div class="invite-body" data-eventbody></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="a-section" style="padding-top:0">
+      <div class="pair">
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="voices.h"></h3><p data-t="voices.p"></p></div>
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="gallery.h"></h3><p data-t="gallery.p"></p></div>
+      </div>
+    </section>
+
+    <section class="a-section news" style="padding-top:0">
+      <h2 class="h2" data-t="news.h"></h2>
+      <p class="lead" data-t="news.p" style="max-width:40ch"></p>
+      <form class="news-form" novalidate data-news><label class="sr-only" for="news-a" data-t="news.email"></label><input id="news-a" type="email" autocomplete="email" inputmode="email" data-ph="news.email"><button class="btn" type="submit"><span data-t="news.btn"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></button></form>
+      <p class="news-msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="foot" data-foot></footer>
+  </div>
+</div>
+
+<!-- ===================== B · AMURG ===================== -->
+<div class="dir dir-b" data-dir="b" hidden>
+  <section class="b-hero">
+    <div class="b-hero-img"><img src="img/hero-dusk-terracotta.webp" alt="" data-alt="alt.heroB" width="2000" height="1333"></div>
+    <div class="wrap">
+      <header class="site-nav" data-enter style="--i:0">
+        <a class="brand" href="#" aria-label="AVA Art &amp; Soul"><svg viewBox="0 0 1 1"><use href="#lockup"/></svg></a>
+        <nav class="nav-links" data-navlinks></nav>
+        <div class="nav-end" data-navend></div>
+      </header>
+    </div>
+    <div class="wrap b-hero-copy">
+      <h1 class="b-title">
+        <span class="sr-only">AVA Art &amp; Soul — </span>
+        <svg class="b-wordmark" aria-hidden="true" data-enter style="--i:1"><use href="#wordmark"/></svg>
+        <span class="b-tag" data-t="hero.tag" data-enter style="--i:2"></span>
+      </h1>
+      <p class="b-sub" data-t="hero.sub" data-enter style="--i:3"></p>
+      <div class="cta-row" data-enter style="--i:4">
+        <a class="btn" href="#" data-glow><span data-t="cta.workshops"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></a>
+        <a class="btn btn-ghost" href="#" data-t="cta.companies"></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="b-dusk">
+  <section class="wrap b-section b-about">
+    <h2 class="script reveal" data-t="about.h"></h2>
+    <div style="display:grid;gap:1.4rem"><p class="lead reveal" data-t="about.p"></p><a class="textlink" href="#" style="color:#F3D9AE"><span data-t="about.link"></span><svg width="14" height="14"><use href="#arrow"/></svg></a></div>
+  </section>
+
+  <section aria-labelledby="b-what-h" style="padding-bottom:clamp(4rem,3rem + 4vw,7rem)">
+    <div class="wrap b-rail-head"><h2 class="h2" id="b-what-h" data-t="what.h"></h2><span class="b-rail-hint" data-t="what.hint"></span></div>
+    <div class="rail" data-services="b" tabindex="0" role="region" aria-labelledby="b-what-h"></div>
+  </section>
+
+  <section class="wrap b-section b-steps-wrap" style="padding-top:clamp(2rem,1rem + 3vw,4rem)">
+    <h2 class="h2 reveal" data-t="steps.h"></h2>
+    <ol class="b-steps" data-steps="b"></ol>
+  </section>
+  </div>
+  <div class="b-dawn" aria-hidden="true"></div>
+
+  <div class="b-light">
+    <section class="wrap b-section" style="padding-top:clamp(3rem,2rem + 3vw,5rem)">
+      <h2 class="h2 reveal" data-t="event.h"></h2>
+      <article class="b-event">
+        <div class="b-event-date">
+          <div><div class="day" data-t="event.day"></div></div>
+          <div><div class="num">15</div><div class="month" data-t="event.month"></div></div>
+          <div class="time" data-t="event.time"></div>
+        </div>
+        <div class="b-event-body" data-eventbody></div>
+      </article>
+    </section>
+
+    <section class="wrap b-section" style="padding-top:0">
+      <div class="pair">
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="voices.h"></h3><p data-t="voices.p"></p></div>
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="gallery.h"></h3><p data-t="gallery.p"></p></div>
+      </div>
+    </section>
+
+    <section class="wrap b-section news" style="padding-top:0">
+      <h2 class="h2" data-t="news.h"></h2>
+      <p class="lead" data-t="news.p" style="max-width:40ch"></p>
+      <form class="news-form" novalidate data-news><label class="sr-only" for="news-b" data-t="news.email"></label><input id="news-b" type="email" autocomplete="email" inputmode="email" data-ph="news.email"><button class="btn" type="submit"><span data-t="news.btn"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></button></form>
+      <p class="news-msg" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+  <div class="foot-band"><footer class="wrap foot" data-foot></footer></div>
+</div>
+
+<!-- ===================== C · JURNAL ===================== -->
+<div class="dir dir-c" data-dir="c" hidden>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="site-nav" data-enter style="--i:0">
+      <a class="brand" href="#" aria-label="AVA Art &amp; Soul"><svg viewBox="0 0 1 1"><use href="#lockup"/></svg></a>
+      <nav class="nav-links" data-navlinks></nav>
+      <div class="nav-end" data-navend></div>
+    </header>
+    <section class="c-hero">
+      <div class="c-copy">
+        <h1 class="c-title">
+          <span class="c-brand" data-enter style="--i:1">AVA Art &amp; Soul<span class="sr-only"> — </span></span>
+          <span class="c-tag" data-tagc data-enter style="--i:2"></span>
+        </h1>
+        <p class="c-sub" data-t="hero.sub" data-enter style="--i:3"></p>
+        <div class="cta-row" data-enter style="--i:4">
+          <a class="btn" href="#" data-glow><span data-t="cta.workshops"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></a>
+          <a class="btn btn-ghost" href="#" data-t="cta.companies"></a>
+        </div>
+      </div>
+      <div class="c-vase" data-enter style="--i:1">
+        <div class="masked"><img src="img/hero-hands-portrait.webp" alt="" data-alt="alt.heroC" width="1600" height="2400"></div>
+        <svg class="outline drawn" viewBox="44 26 226 302" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M115 40 H212" stroke-width="4"/><path pathLength="1" d="M133 46 C136 70 131 86 109 101 C76 124 58 163 58 205 C58 250 86 290 119 322 H194 C227 290 255 250 255 205 C255 163 237 124 204 101 C182 86 177 70 180 46" stroke-width="1.6"/><path pathLength="1" d="M78 184 Q160 197 250 180 M64 238 Q160 250 252 233" stroke-width="1.4"/></g></svg>
+      </div>
+    </section>
+
+    <section class="c-section" style="padding-top:clamp(2rem,1rem + 3vw,4rem)">
+      <div class="c-entry">
+        <h2 class="script" data-t="about.h"></h2>
+        <div style="display:grid;gap:1.4rem;justify-items:start"><p class="lead drop reveal" data-t="about.p"></p><a class="textlink" href="#"><span data-t="about.link"></span><svg width="14" height="14"><use href="#arrow"/></svg></a></div>
+      </div>
+    </section>
+
+    <section class="c-section" style="padding-top:0">
+      <div class="c-entry" style="margin-bottom:2rem"><h2 class="script" data-t="what.h"></h2><p class="lead" data-t="what.intro" style="max-width:34ch"></p></div>
+      <ul class="c-grid" data-services="c"></ul>
+    </section>
+
+    <section class="c-section" style="padding-top:clamp(7rem,5rem + 5vw,10rem)">
+      <div class="c-entry" style="margin-bottom:2.5rem"><h2 class="script" data-t="steps.h"></h2><span></span></div>
+      <ol class="c-steps" data-steps="c"></ol>
+    </section>
+
+    <section class="c-section" style="padding-top:0" aria-labelledby="c-ev-h">
+      <h2 class="sr-only" id="c-ev-h" data-t="event.h"></h2>
+      <article class="c-event">
+        <div class="c-date"><div class="num">15</div><div><div class="month" data-t="event.month"></div><div class="day" data-t="event.day"></div><div class="time" data-t="event.time"></div></div></div>
+        <div class="c-event-body" data-eventbody></div>
+      </article>
+    </section>
+
+    <section class="c-section" style="padding-top:0">
+      <div class="pair">
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="voices.h"></h3><p data-t="voices.p"></p></div>
+        <div class="soon"><span class="soon-label" data-t="soon"></span><h3 data-t="gallery.h"></h3><p data-t="gallery.p"></p></div>
+      </div>
+    </section>
+
+    <section class="c-section" style="padding-top:0">
+      <div class="c-entry">
+        <h2 class="script" data-t="news.short"></h2>
+        <div style="display:grid;gap:1.1rem;justify-items:start;width:100%">
+          <p class="lead" data-t="news.h"></p><p data-t="news.p" style="color:var(--fg-2)"></p>
+          <form class="news-form" novalidate data-news><label class="sr-only" for="news-c" data-t="news.email"></label><input id="news-c" type="email" autocomplete="email" inputmode="email" data-ph="news.email"><button class="btn" type="submit"><span data-t="news.btn"></span><span class="btn-ico"><svg><use href="#arrow"/></svg></span></button></form>
+          <p class="news-msg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot" data-foot></footer>
+  </div>
+</div>
+
+</main>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Meniu">
+  <button class="sheet-close" type="button" data-close aria-label="Închide"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+  <nav data-sheetlinks></nav>
+</div>
+
+<div class="switcher" role="tablist" aria-label="Direcții de design">
+  <span class="ind" aria-hidden="true"></span>
+  <button role="tab" data-go="a" aria-selected="true"><b>A</b>Liniște</button>
+  <button role="tab" data-go="b" aria-selected="false"><b>B</b>Amurg</button>
+  <button role="tab" data-go="c" aria-selected="false"><b>C</b>Jurnal</button>
+</div>
+
+<script>
+(() => {
+/* ---------------- copy (RO default, EN draft) — facts only from the client's document ---------------- */
+const T = {
+ro: {
+  "nav": ["Acasă","Despre noi","Ce facem","Evenimente","Galerie","Contact"],
+  "menu":"Meniu","close":"Închide",
+  "hero.tag":"autocunoaștere prin creație",
+  "hero.tagC":"autocunoaștere <em>prin creație</em>",
+  "hero.sub":"Ateliere cu lut, consiliere și retreaturi pentru momentele în care ai nevoie să te auzi din nou. Pentru tine sau pentru echipa ta.",
+  "cta.workshops":"Vezi atelierele","cta.companies":"Pentru companii",
+  "about.h":"Cine suntem",
+  "about.p":"Suntem trei prietene care cred că mâinile știu uneori lucruri pe care mintea încă nu le-a spus. Facem ateliere în care lutul e doar începutul: restul e despre tine, despre ce simți și despre oamenii cu care împarți masa.",
+  "about.link":"Povestea noastră",
+  "what.h":"Ce facem","what.hint":"Glisează pentru toate cele cinci",
+  "what.intro":"Cinci feluri de a lucra cu lutul și cu tine.",
+  "svc":[
+    ["Ateliere de grup","O dată pe lună, în jurul lutului, cu o temă nouă de fiecare dată.","card-group"],
+    ["Pentru companii","Ateliere de autocunoaștere și conectare pentru echipe.","card-companies"],
+    ["Consiliere 1:1","Ședințe individuale de dezvoltare personală, online sau față în față.","card-counselling"],
+    ["Atelier privat 1:1","Lutul, tu și eu. În ritmul tău, fără grup și fără grabă.","card-private"],
+    ["Retreaturi","Câteva zile departe de oraș, cu lut, natură și liniște. Următorul retreat e în pregătire.","card-retreat"]
+  ],
+  "svc.soon":"în pregătire",
+  "steps.h":"Cum arată un atelier",
+  "steps":["Ajungi, bei un ceai și te așezi.","Lucrezi cu lutul, ghidată de o temă.","Vorbim, împărțim, pleci mai ușoară (și cu piesa ta, după ardere)."],
+  "step.n":["Unu","Doi","Trei"],
+  "event.h":"Următorul eveniment",
+  "event.title":"Modelaj în lut & Scriere creativă",
+  "event.series":"Pauză de Suflet — ediția 2",
+  "event.desc":"Lutul prinde formă în mâinile tale, iar cuvintele vin apoi, prin scriere creativă, alături de Iulia. Pleci acasă cu propriul platou și cu puțin mai multă claritate.",
+  "event.day":"Duminică","event.month":"noiembrie","event.time":"ora 18:00 (2 h 30 min)",
+  "f.where":"Unde","f.price":"Preț","f.with":"Cu",
+  "event.where":"Cotroceni, sector 5",
+  "event.price":"200 lei, cu materialele, îndrumarea, o băutură și o gustare. Îți păstrezi platoul.",
+  "event.with":"Alessia (AVA Art & Soul) și Iulia (Relaxare Creativă)",
+  "event.seats":"Mai avem doar 6 locuri.",
+  "event.cta":"Mă înscriu","event.all":"Toate evenimentele",
+  "soon":"În curând",
+  "voices.h":"Ce spun oamenii","voices.p":"Aici vor apărea impresii reale de la participanți, publicate cu acordul lor.",
+  "gallery.h":"Din ateliere","gallery.p":"Fotografii din ateliere și piese de lut, imediat ce sunt gata. Până atunci, ne găsești pe Instagram.",
+  "news.short":"Newsletter",
+  "news.h":"Află primele despre atelierele noi.",
+  "news.p":"Lasă-ne emailul și primești 5% reducere la următorul eveniment.",
+  "news.email":"Adresa ta de email","news.btn":"Mă abonez",
+  "news.ok":"Mulțumim! Aceasta e o machetă: adresa nu a fost trimisă nicăieri.",
+  "news.err":"Scrie o adresă de email validă, de forma nume@exemplu.ro.",
+  "foot.reply":"Îți răspundem în maxim 24 de ore.",
+  "foot.legal":["Întrebări frecvente","Înscrieri, plată și anulare","Termeni și condiții","Politica de confidențialitate","Cookies","ANPC"],
+  "foot.pfa":"Date de identificare PFA: în curând",
+  "foot.place":"București, Cotroceni",
+  "alt.heroA":"Mâini care țin un vas de lut proaspăt modelat",
+  "alt.heroB":"Mâini care lucrează un vas de lut, în lumină caldă",
+  "alt.heroC":"Mâini acoperite de lut, modelând o piesă"
+},
+en: {
+  "nav": ["Home","About us","What we do","Events","Gallery","Contact"],
+  "menu":"Menu","close":"Close",
+  "hero.tag":"self-discovery through creation",
+  "hero.tagC":"self-discovery <em>through creation</em>",
+  "hero.sub":"Clay workshops, counselling and retreats for the moments when you need to hear yourself again. For you, or for your team.",
+  "cta.workshops":"See the workshops","cta.companies":"For companies",
+  "about.h":"Who we are",
+  "about.p":"We are three friends who believe that hands sometimes know things the mind hasn't said yet. We run workshops where clay is only the beginning: the rest is about you, what you feel, and the people you share the table with.",
+  "about.link":"Our story",
+  "what.h":"What we do","what.hint":"Swipe to see all five",
+  "what.intro":"Five ways of working with clay, and with yourself.",
+  "svc":[
+    ["Group workshops","Once a month, around the clay, with a new theme each time.","card-group"],
+    ["For companies","Self-discovery and connection workshops for teams.","card-companies"],
+    ["1:1 Counselling","Individual personal-development sessions, online or in person.","card-counselling"],
+    ["Private 1:1 workshop","The clay, you and me. At your own pace, no group, no rush.","card-private"],
+    ["Retreats","A few days away from the city, with clay, nature and quiet. The next retreat is in preparation.","card-retreat"]
+  ],
+  "svc.soon":"in preparation",
+  "steps.h":"What a workshop looks like",
+  "steps":["You arrive, have a cup of tea and settle in.","You work with the clay, guided by a theme.","We talk, we share, you leave lighter (and with your piece, after firing)."],
+  "step.n":["One","Two","Three"],
+  "event.h":"Next event",
+  "event.title":"Clay modelling & Creative writing",
+  "event.series":"Pauză de Suflet — edition 2",
+  "event.desc":"The clay takes shape in your hands, then the words follow, through creative writing with Iulia. You go home with your own platter and a little more clarity.",
+  "event.day":"Sunday","event.month":"November","event.time":"6:00 pm (2 h 30 min)",
+  "f.where":"Where","f.price":"Price","f.with":"With",
+  "event.where":"Cotroceni, sector 5, Bucharest",
+  "event.price":"200 lei, with materials, guidance, a drink and a snack. You keep your platter.",
+  "event.with":"Alessia (AVA Art & Soul) and Iulia (Relaxare Creativă)",
+  "event.seats":"Only 6 seats left.",
+  "event.cta":"Book my seat","event.all":"All events",
+  "soon":"Coming soon",
+  "voices.h":"What people say","voices.p":"Real words from participants will appear here, published with their consent.",
+  "gallery.h":"From the workshops","gallery.p":"Photos from workshops and clay pieces, as soon as they're ready. Until then, find us on Instagram.",
+  "news.short":"Newsletter",
+  "news.h":"Be the first to hear about new workshops.",
+  "news.p":"Leave us your email and get 5% off your next event.",
+  "news.email":"Your email address","news.btn":"Subscribe",
+  "news.ok":"Thank you! This is a mockup: your address wasn't sent anywhere.",
+  "news.err":"Enter a valid email address, like name@example.com.",
+  "foot.reply":"We reply within 24 hours.",
+  "foot.legal":["FAQ","Booking, payment & cancellation","Terms & conditions","Privacy policy","Cookies","ANPC"],
+  "foot.pfa":"Business details: coming soon",
+  "foot.place":"Bucharest, Cotroceni",
+  "alt.heroA":"Hands holding a freshly shaped clay vessel",
+  "alt.heroB":"Hands working a clay vessel in warm light",
+  "alt.heroC":"Clay-covered hands shaping a piece"
+}};
+
+let lang = "ro";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const arrow = '<svg width="15" height="15"><use href="#arrow"/></svg>';
+
+function render(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  $$("[data-t]").forEach(el => { el.textContent = t[el.dataset.t]; });
+  $$("[data-ph]").forEach(el => { el.placeholder = t[el.dataset.ph]; });
+  $$("[data-alt]").forEach(el => { el.alt = t[el.dataset.alt]; });
+  $$("[data-tagc]").forEach(el => { el.innerHTML = t["hero.tagC"]; });
+  $$("[data-navlinks]").forEach(el => { el.setAttribute("aria-label", lang==="ro"?"Navigare principală":"Main navigation");
+    el.innerHTML = t.nav.map((n,i) => `<a href="#"${i===0?' aria-current="page"':''}>${esc(n)}</a>`).join(""); });
+  $$("[data-navend]").forEach(el => { el.innerHTML =
+    `<div class="lang" role="group" aria-label="Limba / Language"><button type="button" data-lang="ro" aria-pressed="${lang==="ro"}">RO</button><button type="button" data-lang="en" aria-pressed="${lang==="en"}">EN</button></div>
+     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="${t.menu}"><span></span><span></span></button>`; });
+  $("[data-sheetlinks]").innerHTML = t.nav.map(n => `<a href="#">${esc(n)}</a>`).join("");
+  $("#sheet").setAttribute("aria-label", t.menu); $("[data-close]").setAttribute("aria-label", t.close);
+  const svc = t.svc;
+  const soonTag = i => i===4 ? `<span class="tag-soon">${t["svc.soon"]}</span>` : "";
+  $('[data-services="a"]').innerHTML = svc.map(([n,l,img],i) =>
+    `<li><a href="#" data-i="${i}"${i===0?' class="on"':''}><img class="thumb" src="img/${img}.webp" alt="" loading="lazy"><span class="name">${esc(n)}${soonTag(i)}</span><span class="line">${esc(l)}</span><span class="go" aria-hidden="true">${arrow}</span></a></li>`).join("");
+  $('[data-services="b"]').innerHTML = svc.map(([n,l,img],i) =>
+    `<a href="#"><img src="img/${img}.webp" alt="" loading="lazy"><span class="name">${esc(n)}</span><span class="line">${esc(l)}</span></a>`).join("");
+  $('[data-services="c"]').innerHTML = svc.map(([n,l,img],i) =>
+    `<li class="reveal"><a href="#"><div class="ph"><img src="img/${img}.webp" alt="" loading="lazy"></div><span class="name">${esc(n)}${soonTag(i)}</span><span class="line">${esc(l)}</span></a></li>`).join("");
+  $('[data-steps="a"]').innerHTML = t.steps.map((s,i) => `<li class="reveal"><span class="n" aria-hidden="true">${i+1}</span><p>${esc(s)}</p></li>`).join("");
+  $('[data-steps="b"]').innerHTML = t.steps.map((s,i) => `<li><span class="n" aria-hidden="true">${i+1}</span><p>${esc(s)}</p></li>`).join("");
+  $('[data-steps="c"]').innerHTML = t.steps.map((s,i) => `<li><span class="n">${t["step.n"][i]}</span><p>${esc(s)}</p></li>`).join("");
+  $$("[data-eventbody]").forEach(el => { el.innerHTML =
+    `<h3>${esc(t["event.title"])}</h3>
+     <p class="series">${esc(t["event.series"])}</p>
+     <p style="color:var(--fg-2)">${esc(t["event.desc"])}</p>
+     <dl class="facts"><dt>${t["f.where"]}</dt><dd>${esc(t["event.where"])}</dd><dt>${t["f.price"]}</dt><dd>${esc(t["event.price"])}</dd><dt>${t["f.with"]}</dt><dd>${esc(t["event.with"])}</dd></dl>
+     <p class="seats">${esc(t["event.seats"])}</p>
+     <div class="cta-row"><a class="btn" href="#" data-glow><span>${esc(t["event.cta"])}</span><span class="btn-ico">${arrow}</span></a><a class="textlink" href="#">${esc(t["event.all"])}</a></div>`; });
+  $$("[data-foot]").forEach(el => { el.innerHTML =
+    `<div style="display:grid;gap:1rem;align-content:start"><a class="brand" href="#" aria-label="AVA Art &amp; Soul"><svg viewBox="0 0 1 1"><use href="#lockup"/></svg></a>
+       <div class="contact"><span>ava.events.26@gmail.com</span><span>0730 301 996 · WhatsApp</span><span>${esc(t["foot.place"])}</span><span style="color:var(--fg-3)">${esc(t["foot.reply"])}</span></div></div>
+     <ul>${t["foot.legal"].map(x=>`<li><a href="#">${esc(x)}</a></li>`).join("")}</ul>
+     <div style="display:grid;gap:.8rem;align-content:start"><a href="https://www.instagram.com/ava.art.soul/" target="_blank" rel="noopener" style="display:inline-flex;gap:.5rem;align-items:center"><svg width="20" height="20"><use href="#ig"/></svg>@ava.art.soul</a><span style="color:var(--fg-3)">${esc(t["foot.pfa"])}</span></div>`; });
+  fitLockups(); bindDynamic();
+}
+// lockup <svg> uses a symbol; size the outer viewBox from the symbol so height-based sizing keeps the ratio
+function fitLockups(){
+  // the outer viewport starts at 0,0; the symbol maps its own viewBox into it
+  ["lockup","wordmark"].forEach(id => { const [, , w, h] = $("#"+id).getAttribute("viewBox").split(/\s+/);
+    $$(`svg > use[href="#${id}"]`).forEach(u => u.parentNode.setAttribute("viewBox", `0 0 ${w} ${h}`)); });
+}
+
+/* ---------------- interactions ---------------- */
+function bindDynamic(){
+  // A: service index swaps the arched image
+  const frame = $(".a-frame"), imgs = frame ? $$("img", frame) : [];
+  $$('[data-services="a"] a').forEach(a => {
+    const on = () => { $$('[data-services="a"] a').forEach(x => x.classList.toggle("on", x===a)); imgs.forEach((im,i) => im.classList.toggle("on", i===+a.dataset.i)); };
+    a.addEventListener("pointerenter", on); a.addEventListener("focus", on);
+  });
+}
+const glowOn = e => { const b = e.target.closest && e.target.closest("[data-glow]"); if (b) Sprites.attract(b); };
+const glowOff = e => { const b = e.target.closest && e.target.closest("[data-glow]"); if (b && !b.contains(e.relatedTarget)) Sprites.attract(null); };
+document.addEventListener("pointerover", glowOn); document.addEventListener("pointerout", glowOff);
+document.addEventListener("focusin", glowOn); document.addEventListener("focusout", glowOff);
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href="#"]'); if (a) e.preventDefault();
+  const l = e.target.closest("[data-lang]"); if (l && l.dataset.lang !== lang) { lang = l.dataset.lang; render(); }
+  const m = e.target.closest(".menu-btn"); if (m) openSheet(m);
+  if (e.target.closest("[data-close]") || e.target.closest("[data-sheetlinks] a")) closeSheet();
+});
+let lastMenuBtn = null;
+function openSheet(btn){
+  lastMenuBtn = btn; const s = $("#sheet"); const dir = $(".dir:not([hidden])");
+  const cs = getComputedStyle(dir); s.style.setProperty("--sheet-bg", cs.getPropertyValue("--bg")); s.style.setProperty("--sheet-fg", cs.getPropertyValue("--fg"));
+  s.classList.add("open"); btn.setAttribute("aria-expanded","true");
+  $$("[data-sheetlinks] a").forEach((a,i) => a.style.transitionDelay = (60 + i*45) + "ms");
+  $("[data-close]").focus();
+}
+function closeSheet(){ const s=$("#sheet"); if(!s.classList.contains("open")) return; s.classList.remove("open"); $$("[data-sheetlinks] a").forEach(a => a.style.transitionDelay="0ms");
+  if (lastMenuBtn){ lastMenuBtn.setAttribute("aria-expanded","false"); lastMenuBtn.focus(); } }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+
+document.addEventListener("submit", e => {
+  const f = e.target.closest("[data-news]"); if (!f) return; e.preventDefault();
+  const inp = $("input", f), msg = f.nextElementSibling, ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(inp.value.trim());
+  msg.dataset.state = ok ? "ok" : "err"; msg.textContent = T[lang][ok ? "news.ok" : "news.err"];
+  inp.setAttribute("aria-invalid", String(!ok)); if (!ok) inp.focus(); else inp.value = "";
+});
+
+/* ---------------- direction switching ---------------- */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+const stage = $("#stage"), ind = $(".switcher .ind");
+let current = null;
+function placeIndicator(){ const b = $(`.switcher [data-go="${current}"]`); ind.style.width = b.offsetWidth + "px"; ind.style.transform = `translateX(${b.offsetLeft}px)`; }
+function show(dir, animate){
+  if (dir === current) return;
+  const go = () => {
+    $$(".dir").forEach(d => { const on = d.dataset.dir === dir; d.hidden = !on; d.classList.remove("entering"); });
+    const el = $(`.dir[data-dir="${dir}"]`); void el.offsetWidth; el.classList.add("entering");
+    current = dir; window.scrollTo(0,0);
+    $$(".switcher [data-go]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.go === dir)));
+    placeIndicator(); Sprites.configure(dir);
+    try { history.replaceState(null, "", "#" + dir); } catch(_) {}
+  };
+  if (!animate || reduce.matches || !stage.animate) { go(); return; }
+  const ease = "cubic-bezier(0.23,1,0.32,1)";
+  const out = stage.animate([{opacity:1, filter:"blur(0px)"},{opacity:0, filter:"blur(4px)"}], {duration:200, easing:ease, fill:"forwards"});
+  out.finished.then(() => {
+    go();
+    const inn = stage.animate([{opacity:0, filter:"blur(4px)"},{opacity:1, filter:"blur(0px)"}], {duration:380, easing:ease, fill:"forwards"});
+    out.cancel(); inn.finished.then(() => inn.cancel());
+  });
+}
+$$(".switcher [data-go]").forEach(b => b.addEventListener("click", () => show(b.dataset.go, true)));
+$(".switcher").addEventListener("keydown", e => {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  const order = ["a","b","c"], i = order.indexOf(current), n = order[(i + (e.key==="ArrowRight"?1:2)) % 3];
+  show(n, false); $(`.switcher [data-go="${n}"]`).focus();
+});
+addEventListener("resize", () => current && placeIndicator());
+addEventListener("hashchange", () => { const h = location.hash.slice(1); if (["a","b","c"].includes(h)) show(h, true); });
+
+/* ---------------- woodsprites: glowing motes that drift and follow ---------------- */
+const Sprites = (() => {
+  const cv = $("#sprites"), ctx = cv.getContext("2d");
+  const DIRS = {
+    a:{count:18, follow:.55, comp:"source-over", alpha:1,   core:"255,252,244", halo:"246,196,120", size:1.3, scroll:0},
+    b:{count:44, follow:.6,  comp:"lighter",     alpha:.9,  core:"255,246,226", halo:"255,200,120", size:1.15,scroll:0},
+    c:{count:26, follow:.45, comp:"source-over", alpha:1,   core:"255,252,244", halo:"240,190,120", size:1.15,scroll:1}
+  };
+  // depth is rank: far layers are small, dim and slow; the nearest layer is sparse
+  const LAYERS = [{s:.45,a:.45,drift:.35,k:.5},{s:.75,a:.7,drift:.6,k:.8},{s:1.1,a:1,drift:1,k:1}];
+  let W=0,H=0,dpr=1, list=[], cfg=DIRS.a, raf=0, last=0, t=0;
+  let pointer={x:0,y:0,active:false,lastMove:0}, attractEl=null, scrollV=0, lastScroll=scrollY;
+  const tex = {};
+  function makeTexture(key){
+    if (tex[key]) return tex[key];
+    const c = document.createElement("canvas"), S=96; c.width=c.height=S; const g=c.getContext("2d"), m=S/2;
+    const r = g.createRadialGradient(m,m,0,m,m,m);
+    r.addColorStop(0,`rgba(${cfg.core},1)`); r.addColorStop(.12,`rgba(${cfg.core},.95)`);
+    r.addColorStop(.3,`rgba(${cfg.halo},.42)`); r.addColorStop(1,`rgba(${cfg.halo},0)`);
+    g.fillStyle=r; g.fillRect(0,0,S,S);
+    // fine filaments, like a seed of the sacred tree
+    g.strokeStyle=`rgba(${cfg.core},.55)`; g.lineWidth=.8;
+    for (let i=0;i<9;i++){ const a=i/9*Math.PI*2; g.beginPath(); g.moveTo(m+Math.cos(a)*5,m+Math.sin(a)*5);
+      g.quadraticCurveTo(m+Math.cos(a+.25)*15,m+Math.sin(a+.25)*15,m+Math.cos(a)*24,m+Math.sin(a)*24); g.stroke(); }
+    return tex[key]=c;
+  }
+  function resize(){ dpr=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; }
+  function seed(){
+    list = Array.from({length:cfg.count}, (_,i) => {
+      const L = LAYERS[i%7===0 ? 2 : i%2 ? 1 : 0];
+      const x=Math.random()*W, y=Math.random()*H*.95+H*.03;
+      const k = 7 + Math.random()*9; // spring stiffness (1/s²), varied so followers trail with lag
+      return {x,y,vx:0,vy:0,hx:x,hy:y,L,ph:Math.random()*6.28,rot:Math.random()*6.28,
+        follower: Math.random()<cfg.follow, k, c: 2*Math.sqrt(k)*.72, orbit: 26+Math.random()*120, sp:(Math.random()<.5?-1:1)*(.15+Math.random()*.35),
+        size: (14+Math.random()*16)*L.s*cfg.size, pulse: .6+Math.random()*.8};
+    });
+  }
+  function step(dt){
+    t += dt;
+    const idle = performance.now() - pointer.lastMove > 3500;
+    let tx=null, ty=null, tr=0;
+    if (attractEl){ const r=attractEl.getBoundingClientRect(); tx=r.left+r.width/2; ty=r.top+r.height/2; tr=Math.max(r.width,r.height)*.55; }
+    else if (pointer.active && !idle){ tx=pointer.x; ty=pointer.y; }
+    scrollV *= Math.pow(.02, dt); // decay of scroll impulse
+    for (const p of list){
+      // home wander: slow lissajous drift, slower on far layers
+      const f=dt*60; p.hx += Math.sin(t*.13+p.ph)*.08*p.L.drift*f; p.hy += (Math.cos(t*.11+p.ph*1.3)*.06 - .012)*p.L.drift*f;
+      if (p.hy < -40) { p.hy = H + 30; p.y = p.hy; p.hx = Math.random()*W; p.x = p.hx; }
+      if (p.hx < -40) p.hx = W + 30; if (p.hx > W + 40) p.hx = -30;
+      let gx=p.hx + Math.sin(t*.7+p.ph)*14*p.L.drift, gy=p.hy + Math.cos(t*.6+p.ph)*10*p.L.drift;
+      if (tx!==null && p.follower){
+        const a = p.ph + t*p.sp, r = attractEl ? tr*(.7+.5*Math.sin(p.ph*3+t)) : p.orbit*(1-.25*p.L.s);
+        gx = tx + Math.cos(a)*r; gy = ty + Math.sin(a)*r*.8;
+      }
+      const k = p.k*p.L.k, c = p.c*Math.sqrt(p.L.k);
+      p.vx += ((gx-p.x)*k - p.vx*c)*dt;
+      p.vy += ((gy-p.y)*k - p.vy*c)*dt - scrollV*cfg.scroll*p.L.s*dt*.9;
+      p.x += p.vx*dt; p.y += p.vy*dt; p.rot += dt*.2*p.sp;
+      if (cfg.scroll && p.y < -60){ p.y = H + 40; p.hy = p.y; }
+    }
+  }
+  function draw(){
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation = cfg.comp;
+    const img = makeTexture(current||"a");
+    for (const p of list){
+      const pulse = .72 + .28*Math.sin(t*p.pulse*1.6 + p.ph);
+      const s = p.size*(.9+.1*pulse);
+      ctx.globalAlpha = cfg.alpha*p.L.a*pulse;
+      ctx.setTransform(dpr,0,0,dpr,p.x*dpr,p.y*dpr); ctx.rotate(p.rot);
+      ctx.drawImage(img,-s,-s,s*2,s*2);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(now){
+    const dt = Math.min(.05, (now - (last||now))/1000); last = now;
+    step(dt); draw(); raf = requestAnimationFrame(loop);
+  }
+  function start(){ cancelAnimationFrame(raf); last=0;
+    if (reduce.matches){ t=4; for(let i=0;i<30;i++) step(1/30); draw(); return; } // still frame, no follow
+    raf = requestAnimationFrame(loop); }
+  addEventListener("pointermove", e => { pointer.x=e.clientX; pointer.y=e.clientY; pointer.active=true; pointer.lastMove=performance.now(); }, {passive:true});
+  addEventListener("pointerdown", e => { pointer.x=e.clientX; pointer.y=e.clientY; pointer.active=true; pointer.lastMove=performance.now(); }, {passive:true});
+  document.documentElement.addEventListener("pointerleave", () => { pointer.active=false; });
+  addEventListener("scroll", () => { const y=scrollY; scrollV += (y-lastScroll)*1.2; lastScroll=y; }, {passive:true});
+  addEventListener("resize", () => { resize(); if (reduce.matches) start(); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else start(); });
+  reduce.addEventListener?.("change", start);
+  resize();
+  return {
+    configure(dir){ cfg = DIRS[dir]; seed(); start(); },
+    attract(el){ attractEl = reduce.matches ? null : el; }
+  };
+})();
+
+/* ---------------- boot ---------------- */
+render();
+const fromHash = (location.hash||"").slice(1);
+show(["a","b","c"].includes(fromHash) ? fromHash : "a", false);
+document.fonts && document.fonts.ready.then(() => current && placeIndicator());
+})();
+</script>
